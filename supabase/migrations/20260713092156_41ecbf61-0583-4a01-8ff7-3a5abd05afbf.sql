@@ -1,0 +1,22 @@
+ALTER TABLE public.units_cloud REPLICA IDENTITY FULL;
+ALTER TABLE public.departments_cloud REPLICA IDENTITY FULL;
+ALTER TABLE public.it_assets_cloud REPLICA IDENTITY FULL;
+ALTER TABLE public.accessories_cloud REPLICA IDENTITY FULL;
+ALTER TABLE public.products_cloud REPLICA IDENTITY FULL;
+ALTER TABLE public.ip_addresses REPLICA IDENTITY FULL;
+ALTER TABLE public.printers REPLICA IDENTITY FULL;
+ALTER TABLE public.wifi_networks REPLICA IDENTITY FULL;
+ALTER TABLE public.sticker_buyers REPLICA IDENTITY FULL;
+ALTER TABLE public.sticker_transactions REPLICA IDENTITY FULL;
+ALTER TABLE public.app_data REPLICA IDENTITY FULL;
+ALTER TABLE public.activity_log REPLICA IDENTITY FULL;
+ALTER TABLE public.recycle_bin REPLICA IDENTITY FULL;
+
+ALTER PUBLICATION supabase_realtime ADD TABLE public.switches_cloud;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.switch_ports_cloud;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.switch_locations_cloud;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.switch_gates_cloud;
+ALTER TABLE public.switches_cloud REPLICA IDENTITY FULL;
+ALTER TABLE public.switch_ports_cloud REPLICA IDENTITY FULL;
+ALTER TABLE public.switch_locations_cloud REPLICA IDENTITY FULL;
+ALTER TABLE public.switch_gates_cloud REPLICA IDENTITY FULL;
