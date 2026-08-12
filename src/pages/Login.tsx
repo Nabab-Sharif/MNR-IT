@@ -12,10 +12,15 @@ const Login = () => {
   const [id, setId] = useState("");
   const [busy, setBusy] = useState(false);
   const [showId, setShowId] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (!loading && session && access) nav(access.default_route || "/", { replace: true });
-  }, [loading, session, access, nav]);
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!loading && mounted && session && access) nav(access.default_route || "/", { replace: true });
+  }, [loading, session, access, nav, mounted]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,35 +45,35 @@ const Login = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-slate-950 flex items-center justify-center p-4 login-page">
-      {/* Animated aurora backdrop */}
+      {/* Optimized aurora backdrop - reduced blur and complexity */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-sky-500/30 blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -right-40 w-[700px] h-[700px] rounded-full bg-fuchsia-500/20 blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/3 left-1/2 w-[500px] h-[500px] rounded-full bg-emerald-400/20 blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.08)_1px,transparent_0)] [background-size:32px_32px]" />
+        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-sky-500/20 blur-2xl" />
+        <div className="absolute -bottom-40 -right-40 w-[700px] h-[700px] rounded-full bg-fuchsia-500/15 blur-2xl" />
+        <div className="absolute top-1/3 left-1/2 w-[500px] h-[500px] rounded-full bg-emerald-400/15 blur-2xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.06)_1px,transparent_0)] [background-size:32px_32px]" />
       </div>
 
       <div className="relative w-full max-w-7xl grid lg:grid-cols-2 gap-16 lg:gap-40 items-center">
         {/* Left: brand panel */}
         <div className="hidden lg:block text-white space-y-6 pr-8 animate-login-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur border border-white/20 text-xs uppercase tracking-widest login-word" style={{ animationDelay: "0.4s" }}>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur border border-white/20 text-xs uppercase tracking-widest login-word" style={{ animationDelay: "0.1s" }}>
             <Sparkles className="w-3.5 h-3.5" /> MNR Group
           </div>
           <h1 className="text-6xl font-bold leading-[1.05] tracking-tight flex flex-wrap gap-x-3">
             {["IT", "Assets,"].map((w, i) => (
-              <span key={`a${i}`} className="login-word inline-block" style={{ animationDelay: `${0.6 + i * 0.15}s` }}>{w}</span>
+              <span key={`a${i}`} className="login-word inline-block" style={{ animationDelay: `${0.2 + i * 0.05}s` }}>{w}</span>
             ))}
             <span className="w-full" />
             {["everything", "in", "one", "place."].map((w, i) => (
-              <span key={`b${i}`} className="login-word inline-block bg-gradient-to-r from-sky-300 via-fuchsia-300 to-emerald-300 bg-clip-text text-transparent" style={{ animationDelay: `${0.9 + i * 0.15}s` }}>{w}</span>
+              <span key={`b${i}`} className="login-word inline-block bg-gradient-to-r from-sky-300 via-fuchsia-300 to-emerald-300 bg-clip-text text-transparent" style={{ animationDelay: `${0.35 + i * 0.05}s` }}>{w}</span>
             ))}
           </h1>
           <p className="text-lg text-white/70 max-w-md flex flex-wrap gap-x-1.5">
             {"Realtime dashboard for units, users, printers, WiFi, IP addresses and stickers — synchronized across every device.".split(" ").map((w, i) => (
-              <span key={i} className="login-word inline-block" style={{ animationDelay: `${1.6 + i * 0.06}s` }}>{w}</span>
+              <span key={i} className="login-word inline-block" style={{ animationDelay: `${0.55 + i * 0.02}s` }}>{w}</span>
             ))}
           </p>
-          <div className="flex items-center gap-2 text-white/60 text-sm pt-4 login-word" style={{ animationDelay: "3s" }}>
+          <div className="flex items-center gap-2 text-white/60 text-sm pt-4 login-word" style={{ animationDelay: "1.2s" }}>
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
             Encrypted end-to-end · Role-based access
           </div>

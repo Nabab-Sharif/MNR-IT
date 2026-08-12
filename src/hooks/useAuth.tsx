@@ -41,19 +41,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
+    // Non-blocking auth initialization
+    const initAuth = async () => {
+      try {
+        const { data } = await supabase.auth.getSession();
+        setSession(data.session);
+        setUser(data.session?.user ?? null);
+        if (data.session?.user) {
+          await loadAccess(data.session.user.id);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Use setTimeout to defer auth check until after initial render
+    const timer = setTimeout(initAuth, 0);
+
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
       setSession(s);
       setUser(s?.user ?? null);
-      if (s?.user) setTimeout(() => loadAccess(s.user.id), 0);
+      if (s?.user) loadAccess(s.user.id);
       else setAccess(null);
     });
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setUser(data.session?.user ?? null);
-      if (data.session?.user) loadAccess(data.session.user.id).finally(() => setLoading(false));
-      else setLoading(false);
-    });
-    return () => sub.subscription.unsubscribe();
+
+    return () => {
+      clearTimeout(timer);
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   // Keep permissions fresh while a user is already signed in.
@@ -78,7 +93,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Presence heartbeat: record last_seen every minute while signed in.
   useEffect(() => {
     if (!user) return;
-    const ping = () => { supabase.rpc("touch_last_seen").then(() => {}); };
+    const ping = () => { supabase.rpc("touch_last_seen").then(() => { }); };
     ping();
     const iv = setInterval(ping, 60_000);
     const onVis = () => { if (document.visibilityState === "visible") ping(); };

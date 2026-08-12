@@ -119,9 +119,8 @@ export default defineConfig(({ mode }) => ({
       output: {
         manualChunks(id: string) {
           if (!id.includes("node_modules")) return;
-          if (id.includes("react-dom") || id.includes("/react/") || id.includes("react-router")) return "vendor-react";
+          if (id.includes("react-dom") || id.includes("/react/") || id.includes("react-router") || id.includes("@radix-ui")) return "vendor-react";
           if (id.includes("@supabase")) return "vendor-supabase";
-          if (id.includes("@radix-ui")) return "vendor-ui";
           if (id.includes("pdf") || id.includes("tesseract") || id.includes("zxing") || id.includes("xlsx")) return "vendor-heavy";
           return "vendor";
         },

@@ -11,24 +11,22 @@
   .login-page { scrollbar-width: none; -ms-overflow-style: none; }
 }
 
-/* Login page entrance animations */
+/* Login page entrance animations - optimized for performance */
 @keyframes login-slide-left {
-  0% { opacity: 0; transform: translateX(-100vw); }
-  60% { opacity: 1; }
+  0% { opacity: 0; transform: translateX(-30px); }
   100% { opacity: 1; transform: translateX(0); }
 }
 @keyframes login-slide-right {
-  0% { opacity: 0; transform: translateX(100vw); }
-  60% { opacity: 1; }
+  0% { opacity: 0; transform: translateX(30px); }
   100% { opacity: 1; transform: translateX(0); }
 }
 @keyframes login-word-in {
-  0% { opacity: 0; transform: translateY(12px); filter: blur(4px); }
-  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
-.animate-login-left { animation: login-slide-left 1.4s cubic-bezier(0.22, 1, 0.36, 1) both; will-change: transform, opacity; }
-.animate-login-right { animation: login-slide-right 1.4s cubic-bezier(0.22, 1, 0.36, 1) both; will-change: transform, opacity; }
-.login-word { opacity: 0; animation: login-word-in 0.55s ease-out both; }
+.animate-login-left { animation: login-slide-left 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; will-change: transform, opacity; }
+.animate-login-right { animation: login-slide-right 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; will-change: transform, opacity; }
+.login-word { opacity: 0; animation: login-word-in 0.3s ease-out both; }
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
