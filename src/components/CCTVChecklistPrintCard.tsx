@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 interface NVRCamera {
   id: number;
@@ -51,9 +51,9 @@ const CCTVChecklistPrintCard: React.FC<CCTVChecklistPrintCardProps> = ({
     >
       {/* Header with Logo */}
       <div style={{ textAlign: "center" as const, marginBottom: "8px" }}>
-        <img 
-          src="/pictures/a036b691-f157-44ee-9c7c-6c641ef0b004.png" 
-          alt="MNR Logo" 
+        <img
+          src="/pictures/a036b691-f157-44ee-9c7c-6c641ef0b004.png"
+          alt="MNR Logo"
           style={{ height: "40px", marginBottom: "4px" }}
         />
         <div style={{ fontSize: "16px", fontWeight: "bold", color: "#1a365d" }}>
