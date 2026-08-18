@@ -85,14 +85,14 @@ const CCTVPrintCard = forwardRef<HTMLDivElement, CCTVPrintCardProps>(
         {Object.entries(groupedCameras).map(([unitName, departments]) => (
           <div key={unitName} className="cctv-print-section mt-6 page-break-inside-avoid">
             <h3 className="cctv-print-section-title">{unitName}</h3>
-            
+
             {Object.entries(departments).map(([deptName, deptCameras]) => (
               <div key={deptName} className="mt-4">
                 <h4 className="text-sm font-semibold text-gray-600 mb-2 flex items-center gap-2">
                   <span className="bg-sky-100 text-sky-700 px-2 py-0.5 rounded">{deptName}</span>
                   <span className="text-xs text-gray-400">({deptCameras.length} cameras)</span>
                 </h4>
-                
+
                 <table className="cctv-print-table w-full">
                   <thead>
                     <tr>
@@ -180,17 +180,17 @@ const CCTVPrintCard = forwardRef<HTMLDivElement, CCTVPrintCardProps>(
           <div className="grid grid-cols-3 gap-8">
             <div className="text-center">
               <div className="signature-line"></div>
-              <p className="text-sm font-medium">Checked By</p>
+
               <p className="text-xs text-gray-500">Security Officer</p>
             </div>
             <div className="text-center">
               <div className="signature-line"></div>
-              <p className="text-sm font-medium">Verified By</p>
+
               <p className="text-xs text-gray-500">IT Department</p>
             </div>
             <div className="text-center">
               <div className="signature-line"></div>
-              <p className="text-sm font-medium">Approved By</p>
+
               <p className="text-xs text-gray-500">Management</p>
             </div>
           </div>

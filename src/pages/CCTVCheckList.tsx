@@ -827,9 +827,9 @@ const CCTVCheckList = () => {
             <tbody>${cameraRows}</tbody>
           </table>
           <div class="signature-section">
-            <div class="sig-block"><div class="sig-space"></div><div class="sig-label">Checked By</div><div class="sig-name">${checklist.checked_by}</div></div>
-            <div class="sig-block"><div class="sig-space"></div><div class="sig-label">Verified By</div><div class="sig-name">${checklist.verified_by}</div></div>
-            <div class="sig-block"><div class="sig-space"></div><div class="sig-label">Approved By</div><div class="sig-name">${checklist.approved_by}</div></div>
+            <div class="sig-block"><div class="sig-space"></div><div class="sig-name">${checklist.checked_by}</div></div>
+            <div class="sig-block"><div class="sig-space"></div><div class="sig-name">${checklist.verified_by}</div></div>
+            <div class="sig-block"><div class="sig-space"></div><div class="sig-name">${checklist.approved_by}</div></div>
           </div>
         </div>
       `;
@@ -1234,17 +1234,17 @@ const CCTVCheckList = () => {
           <div class="signature-section">
             <div class="sig-block">
               <div class="sig-space"></div>
-              <div class="sig-label">Checked By</div>
+              
               <div class="sig-name">${checklist.checked_by}</div>
             </div>
             <div class="sig-block">
               <div class="sig-space"></div>
-              <div class="sig-label">Verified By</div>
+              
               <div class="sig-name">${checklist.verified_by}</div>
             </div>
             <div class="sig-block">
               <div class="sig-space"></div>
-              <div class="sig-label">Approved By</div>
+            
               <div class="sig-name">${checklist.approved_by}</div>
             </div>
           </div>
@@ -1343,17 +1343,17 @@ const CCTVCheckList = () => {
           <div class="signature-section">
             <div class="sig-block">
               <div class="sig-space"></div>
-              <div class="sig-label">Checked By</div>
+             
               <div class="sig-name">${checklist.checked_by}</div>
             </div>
             <div class="sig-block">
               <div class="sig-space"></div>
-              <div class="sig-label">Verified By</div>
+             
               <div class="sig-name">${checklist.verified_by}</div>
             </div>
             <div class="sig-block">
               <div class="sig-space"></div>
-              <div class="sig-label">Approved By</div>
+             
               <div class="sig-name">${checklist.approved_by}</div>
             </div>
           </div>
@@ -1494,8 +1494,8 @@ const CCTVCheckList = () => {
           </AlertDialogTitle>
           <AlertDialogDescription
             className={`mt-2 rounded-md border p-3 text-sm ${confirmState?.tone === "warning"
-                ? "border-orange-500/30 bg-orange-500/5"
-                : "border-destructive/30 bg-destructive/5"
+              ? "border-orange-500/30 bg-orange-500/5"
+              : "border-destructive/30 bg-destructive/5"
               }`}
           >
             {confirmState?.description}
@@ -3174,7 +3174,7 @@ const CCTVCheckList = () => {
             {/* Signature Fields */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 mt-4 border-t">
               <div>
-                <Label htmlFor="checked_by">Checked By</Label>
+
                 <Input
                   id="checked_by"
                   value={checklistFormData.checked_by}
@@ -3182,7 +3182,7 @@ const CCTVCheckList = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="verified_by">Verified By</Label>
+
                 <Input
                   id="verified_by"
                   value={checklistFormData.verified_by}
@@ -3190,7 +3190,7 @@ const CCTVCheckList = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="approved_by">Approved By</Label>
+
                 <Input
                   id="approved_by"
                   value={checklistFormData.approved_by}
@@ -3281,8 +3281,8 @@ const CCTVCheckList = () => {
             </AlertDialogTitle>
             <AlertDialogDescription
               className={`mt-2 rounded-md border p-3 text-sm ${confirmState?.tone === "warning"
-                  ? "border-orange-500/30 bg-orange-500/5"
-                  : "border-destructive/30 bg-destructive/5"
+                ? "border-orange-500/30 bg-orange-500/5"
+                : "border-destructive/30 bg-destructive/5"
                 }`}
             >
               {confirmState?.description}
