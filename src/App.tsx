@@ -18,7 +18,23 @@ import { AssetDetailsHost } from "./components/UserAssetCard";
 import Login from "./pages/Login";
 
 // Factory helpers so we can also warm the chunk after auth.
-const l = <T,>(f: () => Promise<T>) => ({ Comp: lazy(f as any), load: f });
+const l = <T,>(f: () => Promise<T>) => {
+  const load = async () => {
+    try {
+      return await f();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      const isStaleChunk = /dynamically imported module|module script/i.test(message);
+      const reloadKey = "mnr-stale-chunk-reloaded";
+      if (isStaleChunk && typeof window !== "undefined" && !sessionStorage.getItem(reloadKey)) {
+        sessionStorage.setItem(reloadKey, "1");
+        window.location.reload();
+      }
+      throw error;
+    }
+  };
+  return { Comp: lazy(load as any), load };
+};
 const _Dashboard = l(() => import("./pages/Dashboard"));
 const _Departments = l(() => import("./pages/Departments"));
 const _Accessories = l(() => import("./pages/Accessories"));
@@ -85,7 +101,7 @@ const PrintLogger = () => {
           ? (window as any).requestIdleCallback(cb, { timeout })
           : setTimeout(cb, timeout);
       idle(() => {
-        import("@/lib/prefetch").then((m) => m.prefetchAll()).catch(() => {});
+        import("@/lib/prefetch").then((m) => m.prefetchAll()).catch(() => { });
       }, 5000);
     }
     const onBeforePrint = () => {
@@ -128,55 +144,55 @@ const PrintLogger = () => {
 
 const App = () => (
   <ReduxProvider store={store}>
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
-          <PrintLogger />
-          <div className="min-h-screen bg-gradient-to-br from-sky-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 flex flex-col">
-            <Navbar />
-            <main className="flex-1">
-              <Suspense fallback={<div className="fixed top-0 left-0 right-0 h-0.5 bg-primary/70 animate-pulse z-50" />}>
-              <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/" element={<RequireAuth><Dashboard /></RequireAuth>} />
-                <Route path="/departments" element={<RequireAuth><Departments /></RequireAuth>} />
-                <Route path="/accessories" element={<RequireAuth><Accessories /></RequireAuth>} />
-                <Route path="/ip-addresses" element={<RequireAuth><IPAddresses /></RequireAuth>} />
-                <Route path="/printers" element={<RequireAuth><Printers /></RequireAuth>} />
-                <Route path="/ip-phones" element={<RequireAuth><IPPhoneList /></RequireAuth>} />
-                <Route path="/wifi-list" element={<RequireAuth><WifiList /></RequireAuth>} />
-                <Route path="/cctv-list" element={<RequireAuth><CCTVList /></RequireAuth>} />
-                <Route path="/cctv-checklist" element={<RequireAuth><CCTVCheckList /></RequireAuth>} />
-                <Route path="/sticker-printer" element={<RequireAuth><StickerPrinter /></RequireAuth>} />
-                <Route path="/sticker-printer/crop" element={<RequireAuth><CropTool /></RequireAuth>} />
-                <Route path="/sticker-printer/barcode-reader" element={<RequireAuth><BarcodeReader /></RequireAuth>} />
-                <Route path="/sticker-printer/pdf-edit" element={<RequireAuth><PdfEdit /></RequireAuth>} />
-                <Route path="/sticker-printer/image-editor" element={<RequireAuth><ImageEditor /></RequireAuth>} />
-                <Route path="/sticker-printer/ocr" element={<RequireAuth><OcrTool /></RequireAuth>} />
-                <Route path="/sticker-printer/pdf-annotate" element={<RequireAuth><PdfAnnotate /></RequireAuth>} />
-                <Route path="/sticker-printer/pdf-viewer" element={<RequireAuth><PdfViewer /></RequireAuth>} />
-                <Route path="/sticker-printer/barcode-qr" element={<RequireAuth><BarcodeQrTools /></RequireAuth>} />
-                <Route path="/sticker-printer/pdf-tools" element={<RequireAuth><PdfTools /></RequireAuth>} />
-                <Route path="/products" element={<RequireAuth><Products /></RequireAuth>} />
-                <Route path="/settings" element={<RequireAuth><Settings /></RequireAuth>} />
-                <Route path="/user-profiles" element={<RequireAuth><UserProfiles /></RequireAuth>} />
-                <Route path="/my-profile" element={<RequireAuth><MyProfile /></RequireAuth>} />
-                <Route path="/super-admin" element={<RequireAuth superOnly><SuperAdmin /></RequireAuth>} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              </Suspense>
-            </main>
-            <Footer />
-            <AssetDetailsHost />
-          </div>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AuthProvider>
+            <PrintLogger />
+            <div className="min-h-screen bg-gradient-to-br from-sky-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 flex flex-col">
+              <Navbar />
+              <main className="flex-1">
+                <Suspense fallback={<div className="fixed top-0 left-0 right-0 h-0.5 bg-primary/70 animate-pulse z-50" />}>
+                  <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/" element={<RequireAuth><Dashboard /></RequireAuth>} />
+                    <Route path="/departments" element={<RequireAuth><Departments /></RequireAuth>} />
+                    <Route path="/accessories" element={<RequireAuth><Accessories /></RequireAuth>} />
+                    <Route path="/ip-addresses" element={<RequireAuth><IPAddresses /></RequireAuth>} />
+                    <Route path="/printers" element={<RequireAuth><Printers /></RequireAuth>} />
+                    <Route path="/ip-phones" element={<RequireAuth><IPPhoneList /></RequireAuth>} />
+                    <Route path="/wifi-list" element={<RequireAuth><WifiList /></RequireAuth>} />
+                    <Route path="/cctv-list" element={<RequireAuth><CCTVList /></RequireAuth>} />
+                    <Route path="/cctv-checklist" element={<RequireAuth><CCTVCheckList /></RequireAuth>} />
+                    <Route path="/sticker-printer" element={<RequireAuth><StickerPrinter /></RequireAuth>} />
+                    <Route path="/sticker-printer/crop" element={<RequireAuth><CropTool /></RequireAuth>} />
+                    <Route path="/sticker-printer/barcode-reader" element={<RequireAuth><BarcodeReader /></RequireAuth>} />
+                    <Route path="/sticker-printer/pdf-edit" element={<RequireAuth><PdfEdit /></RequireAuth>} />
+                    <Route path="/sticker-printer/image-editor" element={<RequireAuth><ImageEditor /></RequireAuth>} />
+                    <Route path="/sticker-printer/ocr" element={<RequireAuth><OcrTool /></RequireAuth>} />
+                    <Route path="/sticker-printer/pdf-annotate" element={<RequireAuth><PdfAnnotate /></RequireAuth>} />
+                    <Route path="/sticker-printer/pdf-viewer" element={<RequireAuth><PdfViewer /></RequireAuth>} />
+                    <Route path="/sticker-printer/barcode-qr" element={<RequireAuth><BarcodeQrTools /></RequireAuth>} />
+                    <Route path="/sticker-printer/pdf-tools" element={<RequireAuth><PdfTools /></RequireAuth>} />
+                    <Route path="/products" element={<RequireAuth><Products /></RequireAuth>} />
+                    <Route path="/settings" element={<RequireAuth><Settings /></RequireAuth>} />
+                    <Route path="/user-profiles" element={<RequireAuth><UserProfiles /></RequireAuth>} />
+                    <Route path="/my-profile" element={<RequireAuth><MyProfile /></RequireAuth>} />
+                    <Route path="/super-admin" element={<RequireAuth superOnly><SuperAdmin /></RequireAuth>} />
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Suspense>
+              </main>
+              <Footer />
+              <AssetDetailsHost />
+            </div>
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
   </ReduxProvider>
 );
 
