@@ -1,0 +1,1 @@
+ALTER TABLE public.access_users ADD COLUMN IF NOT EXISTS designation text;
