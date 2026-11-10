@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1791288127734,
+      "tag": "0000_migration",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791720026635,
+      "tag": "0001_sticker_print_history",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791893710144,
+      "tag": "0002_add_po_no_to_sticker_print_history",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792000000000,
+      "tag": "0003_unique_cctv_checklist_dates",
+      "breakpoints": true
+    }
+  ]
+}
