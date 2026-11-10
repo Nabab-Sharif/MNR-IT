@@ -10,6 +10,10 @@ export type LocalNotification = {
 const STORAGE_KEY = "mnr_local_notifications";
 const MAX_NOTIFICATIONS = 100;
 const listeners = new Set<(notifications: LocalNotification[]) => void>();
+const badgeUnreadCounts: Record<"local" | "activity", number | null> = {
+  local: 0,
+  activity: null,
+};
 
 type BadgeNavigator = Navigator & {
   setAppBadge?: (contents?: number) => Promise<void>;
@@ -57,10 +61,10 @@ export function getLocalNotifications(): LocalNotification[] {
   }
 }
 
-function syncAppBadge(notifications: LocalNotification[]) {
+function syncAppBadge() {
   if (typeof navigator === "undefined") return;
   const appNavigator = navigator as BadgeNavigator;
-  const unreadCount = notifications.filter((notification) => !notification.read).length;
+  const unreadCount = badgeUnreadCounts.activity ?? badgeUnreadCounts.local ?? 0;
   const update = unreadCount > 0
     ? appNavigator.setAppBadge?.(unreadCount)
     : appNavigator.clearAppBadge
@@ -72,13 +76,20 @@ function syncAppBadge(notifications: LocalNotification[]) {
   });
 }
 
+export function setNotificationBadgeCount(source: "local" | "activity", count: number | null) {
+  badgeUnreadCounts[source] = count === null || !Number.isFinite(count)
+    ? null
+    : Math.max(0, Math.floor(count));
+  syncAppBadge();
+}
+
 function saveNotifications(notifications: LocalNotification[]) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(notifications));
   } catch (error) {
     console.error("Unable to save app notifications:", error);
   }
-  syncAppBadge(notifications);
+  setNotificationBadgeCount("local", notifications.filter((notification) => !notification.read).length);
   listeners.forEach((listener) => listener(notifications));
   window.dispatchEvent(new CustomEvent("mnr-local-notifications", { detail: notifications }));
 }
@@ -120,5 +131,5 @@ export function clearLocalNotifications() {
 }
 
 export function restoreLocalNotificationBadge() {
-  syncAppBadge(getLocalNotifications());
+  setNotificationBadgeCount("local", getLocalNotifications().filter((notification) => !notification.read).length);
 }

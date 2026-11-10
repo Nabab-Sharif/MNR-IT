@@ -18,6 +18,7 @@ import {
 import { pageDataForRoute } from "@/lib/pageDataRegistry";
 import { readSource, writeSource, downloadJSON, pickJSONFile } from "@/lib/dataIO";
 import { toast } from "@/lib/appToast";
+import { setNotificationBadgeCount } from "@/lib/localNotifications";
 
 const THEMES = [
   { id: "sky", name: "Sky Blue", color: "hsl(200, 100%, 45%)" },
@@ -82,6 +83,10 @@ const Navbar = () => {
   const [notifOpen, setNotifOpen] = useState(false);
   const [notifFilter, setNotifFilter] = useState<"all" | "unseen" | "seen">("all");
   const unread = notifs.filter((n) => !n.seen).length;
+
+  useEffect(() => {
+    setNotificationBadgeCount("activity", access?.is_super_admin ? unread : null);
+  }, [access?.is_super_admin, unread]);
 
   useEffect(() => {
     if (!access?.is_super_admin) return;
@@ -303,8 +308,13 @@ const Navbar = () => {
                           onClick={async (e) => {
                             e.stopPropagation();
                             const ids = notifs.filter((n) => !n.seen).map((n) => n.id);
+                            if (ids.length === 0) return;
                             setNotifs((prev) => prev.map((n) => ({ ...n, seen: true })));
-                            await supabase.from("activity_log").update({ seen: true }).in("id", ids);
+                            const { error } = await supabase.from("activity_log").update({ seen: true }).in("id", ids);
+                            if (error) {
+                              toast.error(error.message);
+                              setNotifs((prev) => prev.map((n) => ids.includes(n.id) ? { ...n, seen: false } : n));
+                            }
                           }}
                           className="text-[11px] px-2.5 py-1 rounded-md bg-white/15 hover:bg-white/25 ring-1 ring-white/20 transition"
                           title="Mark all as read"
@@ -391,6 +401,14 @@ const Navbar = () => {
                           <button
                             onClick={async () => {
                               setNotifOpen(false);
+                              if (!n.seen) {
+                                setNotifs((prev) => prev.map((item) => item.id === n.id ? { ...item, seen: true } : item));
+                                const { error } = await supabase.from("activity_log").update({ seen: true }).eq("id", n.id);
+                                if (error) {
+                                  toast.error(error.message);
+                                  setNotifs((prev) => prev.map((item) => item.id === n.id ? { ...item, seen: false } : item));
+                                }
+                              }
                               const accessTargetId = n.entity === "Access User" ? n.entity_id || n.access_id : null;
                               const target = accessTargetId
                                 ? `/super-admin?highlight=${encodeURIComponent(accessTargetId)}`
