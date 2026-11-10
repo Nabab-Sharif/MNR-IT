@@ -18,7 +18,6 @@ import {
 import { pageDataForRoute } from "@/lib/pageDataRegistry";
 import { readSource, writeSource, downloadJSON, pickJSONFile } from "@/lib/dataIO";
 import { toast } from "@/lib/appToast";
-import LocalNotificationCenter from "@/components/LocalNotificationCenter";
 
 const THEMES = [
   { id: "sky", name: "Sky Blue", color: "hsl(200, 100%, 45%)" },
@@ -259,7 +258,6 @@ const Navbar = () => {
 
           <div className="ml-auto flex shrink-0 items-center gap-2">
             {/* Export / Import moved to Super Admin → Settings */}
-            <LocalNotificationCenter />
             {access?.is_super_admin && (
               <Popover
                 open={notifOpen}
