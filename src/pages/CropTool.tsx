@@ -161,7 +161,7 @@ const CropTool = () => {
   const loadBatches = useCallback(async () => {
     try {
       const all = (await dbService.getAll("crop_batches")) as Batch[];
-      setBatches(all.sort((a, b) => (a.seq ?? a.createdAt) - (b.seq ?? b.createdAt)));
+      setBatches([...all].sort((a, b) => (a.seq ?? a.createdAt) - (b.seq ?? b.createdAt)));
     } catch (e: any) {
       console.error(e);
       toast.error("Failed to load saved batches: " + (e?.message || "Unknown error"));
