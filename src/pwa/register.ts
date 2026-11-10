@@ -1,10 +1,9 @@
 // Guarded service worker registration for offline support.
-// Never registers in dev, iframe previews, or Lovable preview hosts.
+// Never registers in iframe previews or Lovable preview hosts.
 
-const SW_URL = "/sw.js";
+const SW_URL = import.meta.env.DEV ? "/dev-sw.js?dev-sw" : "/sw.js";
 
 function shouldSkip(): boolean {
-  if (!import.meta.env.PROD) return true;
   if (typeof window === "undefined") return true;
   try {
     if (window.top !== window.self) return true;
@@ -29,7 +28,9 @@ async function unregisterMatching() {
         .filter((r) => (r.active?.scriptURL || "").endsWith(SW_URL))
         .map((r) => r.unregister())
     );
-  } catch {}
+  } catch (error) {
+    console.warn("Unable to unregister the PWA service worker:", error);
+  }
 }
 
 export function registerPWA() {
@@ -39,6 +40,8 @@ export function registerPWA() {
     return;
   }
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register(SW_URL, { scope: "/" }).catch(() => {});
+    navigator.serviceWorker.register(SW_URL, { scope: "/" }).catch((error) => {
+      console.error("Unable to register the PWA service worker:", error);
+    });
   });
 }

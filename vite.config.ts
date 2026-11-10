@@ -4,18 +4,17 @@ import path from "path";
 import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig(() => ({
   server: {
     host: "::",
     port: 8080,
   },
   plugins: [
     react(),
-    mode === 'development' &&
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: null,
-      devOptions: { enabled: false },
+      devOptions: { enabled: true },
       includeAssets: ['favicon.ico', 'robots.txt', 'pictures/**/*.png'],
       manifest: {
         name: 'MNR IT',
@@ -104,7 +103,7 @@ export default defineConfig(({ mode }) => ({
         ]
       }
     })
-  ].filter(Boolean),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
