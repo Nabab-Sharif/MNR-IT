@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Download, FileText, Highlighter, Link2, Bookmark, Search, GitCompare, PenTool, FileSignature, Type } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { saveAs } from "file-saver";
 

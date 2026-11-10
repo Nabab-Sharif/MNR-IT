@@ -12,7 +12,7 @@ import {
   ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Copy, FileImage, Image as ImageIcon,
   FileDown, Type, Droplets, Hash, CheckSquare, Square, Eye,
 } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
 import { PDFDocument, degrees, StandardFonts, rgb } from "pdf-lib";
 import * as pdfjsLib from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";

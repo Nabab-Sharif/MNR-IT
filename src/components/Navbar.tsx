@@ -17,7 +17,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { pageDataForRoute } from "@/lib/pageDataRegistry";
 import { readSource, writeSource, downloadJSON, pickJSONFile } from "@/lib/dataIO";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
+import LocalNotificationCenter from "@/components/LocalNotificationCenter";
 
 const THEMES = [
   { id: "sky", name: "Sky Blue", color: "hsl(200, 100%, 45%)" },
@@ -258,6 +259,7 @@ const Navbar = () => {
 
           <div className="ml-auto flex shrink-0 items-center gap-2">
             {/* Export / Import moved to Super Admin → Settings */}
+            <LocalNotificationCenter />
             {access?.is_super_admin && (
               <Popover
                 open={notifOpen}
@@ -270,7 +272,7 @@ const Navbar = () => {
                     variant="ghost"
                     size="sm"
                     className="relative text-foreground/70 hover:text-foreground hover:bg-foreground/5"
-                    title="Notifications"
+                    title="Activity log"
                   >
                     <Bell className="h-5 w-5" />
                     {unread > 0 && (
@@ -292,7 +294,7 @@ const Navbar = () => {
                       <span className="h-7 w-7 rounded-lg bg-white/20 backdrop-blur inline-flex items-center justify-center ring-1 ring-white/30">
                         <Bell className="h-3.5 w-3.5" />
                       </span>
-                      Notifications
+                      Activity log
                       <span className="ml-1 text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-white/20 ring-1 ring-white/30">
                         {notifs.length}
                       </span>

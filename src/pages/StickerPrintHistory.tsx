@@ -16,7 +16,7 @@ import {
   AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { History, Pencil, Trash2, Save, Printer, UserPlus, ArrowLeft, Search, X, MoreVertical } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
 
 const PATH = "/sticker-printer/print-history";
 type Entry = { id: string; buyer_id: string; print_date: string; pcs: number; po_no: string | null; note: string | null; created_at: string; updated_at?: string };

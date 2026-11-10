@@ -16,7 +16,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Sticker, Plus, User, Building2, Pencil, Trash2, Search, ArrowLeft, ArrowDownCircle, ArrowUpCircle, AlertTriangle, Package, FileText, History, Printer, LayoutDashboard, Users, TrendingDown, Layers, MessageCircle, UserCheck, MoreVertical, Mail, Scissors, ScanBarcode, FileEdit, Image as ImageIcon, ScanText, Edit3, BookOpen, QrCode, FileSignature } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
 import dbService from "@/services/indexedDBService";
 import PermGate from "@/components/PermGate";
 import { usePerm } from "@/hooks/usePerm";

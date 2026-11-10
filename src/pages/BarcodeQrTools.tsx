@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, QrCode, ScanBarcode, Download, FileText, Search, Camera, StopCircle } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
 import JsBarcode from "jsbarcode";
 import QRCode from "qrcode";
 import JSZip from "jszip";

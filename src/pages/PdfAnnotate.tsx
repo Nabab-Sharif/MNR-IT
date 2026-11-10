@@ -12,7 +12,7 @@ import {
   Pen, Square as SquareIcon, Circle as CircleIcon, Minus, ArrowRight, Type,
   StickyNote, PenTool, MousePointer2, Edit3,
 } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import * as pdfjsLib from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";

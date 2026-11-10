@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CloudUpload, Loader2 } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
 import { supabase } from "@/integrations/supabase/client";
 
 const STORES: Record<string, string> = {

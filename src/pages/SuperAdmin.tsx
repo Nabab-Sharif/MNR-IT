@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
 import { supabase } from "@/integrations/supabase/client";
 import { Shield, Plus, Trash2, Pencil, Loader2, KeyRound, Tag, LayoutDashboard, ShieldCheck, Sparkles, Bell, PlusCircle, Trash, Edit3, User, Building2, MapPin, Phone, Briefcase, Recycle, RotateCcw, Search, X, Filter } from "lucide-react";
 import { NAV_ROUTES } from "@/lib/navRoutes";

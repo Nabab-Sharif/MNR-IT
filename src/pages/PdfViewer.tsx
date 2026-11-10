@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, Upload, ZoomIn, ZoomOut, ChevronUp, ChevronDown, BookOpen } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
 import * as pdfjsLib from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 

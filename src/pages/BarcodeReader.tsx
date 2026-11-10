@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ScanBarcode, Camera, Upload, Copy, Trash2, FileText, Play, CheckCircle2, AlertTriangle } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
 import * as pdfjsLib from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 import { detectFromCanvas, detectFromImageFile, detectFromVideoFrame, isNativeBarcodeSupported } from "@/lib/barcodeDetect";

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, ScanText, Upload, Download, FileText, Copy, ScanBarcode, QrCode } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/lib/appToast";
 import Tesseract from "tesseract.js";
 import * as pdfjsLib from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";
